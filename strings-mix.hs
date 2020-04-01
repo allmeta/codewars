@@ -14,7 +14,6 @@ mix s1 s2 = diff (filter e a) (filter e b)
 
 count :: [Char]->[(Char,Int)]
 count xs = 
-  filter (flip (>) 1 . snd) $ 
   nub $ 
   map c xs
     where c x = (x, length $ filter ((==) x) xs)
@@ -22,12 +21,12 @@ count xs =
 diff :: [(Char,Int)]->[(Char,Int)]->[Char]
 diff [] _ = ""
 diff _ [] = ""
-diff = 
-  intercalate "/" .
-  map (\(a,b)->a++":"++b) .
-  sortBy (\(a,_) (b,_)-> compare a b) .  
-  map conv . 
-  zip
+diff xs xy = 
+  intercalate "/" $
+  map (\(a,b)->a++":"++b) $
+  sortOn fst $
+  map conv $ 
+  zip xs xy
     where conv ((a1,b1),(a2,b2))= (num b1 b2, replicate (max b1 b2) a1)
           num a b 
             | a > b = "1"
