@@ -1,4 +1,4 @@
-odewars.Kata.Decompose where
+module Codewars.Kata.Decompose where
 import Data.Ratio
 import GHC.Real
 
